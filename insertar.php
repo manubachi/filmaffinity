@@ -18,23 +18,23 @@
                     <form action="#" method="post">
                         <div class="form-group">
                             <label for="titulo">Título</label>
-                            <input type="text" name="titulo" class="form-control">
+                            <input id="titulo" type="text" name="titulo" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="anyo">Año</label>
-                            <input type="text" name="anyo" class="form-control">
+                            <input id="anyo" type="text" name="anyo" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="sinopsis">Sinopsis</label>
-                            <textarea name="sinopsis" rows="8" cols="80" class="form-control"></textarea>
+                            <textarea id="sinopsis" name="sinopsis" rows="8" cols="80" class="form-control"></textarea>
                         </div>
                         <div class="form-group">
                             <label for="duracion">Duración</label>
-                            <input type="text" name="duracion" class="form-control">
+                            <input id="duracion" type="text" name="duracion" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="genero_id">Género</label>
-                            <input type="text" name="genero_id" class="form-control">
+                            <input id="genero_id" type="text" name="genero_id" class="form-control">
                         </div>
                         <input type="submit" value="Insertar" class="btn btn-success">
                         <a href="index.php" class="btn btn-info">Volver</a>
