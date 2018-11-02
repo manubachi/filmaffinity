@@ -69,9 +69,22 @@
                         </div>
                         <div class="form-group">
                             <label for="genero_id">Género</label>
-                            <input id="genero_id" type="text" name="genero_id"
-                                   class="form-control"
-                                   value="<?= $genero_id?>">
+                            <select class="form-control" name="genero_id">
+                                <option selected value="">--Seleccione un género de la lista--</option>
+                                <?php
+                                    $pdo = conectar();
+                                    $st = $pdo->query('SELECT id, genero FROM generos');
+                                    $res = '';
+                                    foreach ($st as $fila):
+                                        ?>
+                                        <option
+                                            value="<?= $fila['id'] ?>">
+                                            <?= $fila['genero'] ?>
+                                        </option>
+                                        <?php
+                                    endforeach;
+                                ?>
+                            </select>
                         </div>
                         <input type="submit" value="Insertar"
                                class="btn btn-success">
