@@ -73,7 +73,7 @@
                         <tbody>
                             <?php foreach ($st as $fila): ?>
                                 <tr>
-                                    <td><?= $fila['titulo'] ?></td>
+                                    <td><?= filter_var($fila['titulo'], FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?></td>
                                     <td><?= $fila['anyo'] ?></td>
                                     <td><?= $fila['sinopsis'] ?></td>
                                     <td><?= $fila['duracion'] ?></td>
