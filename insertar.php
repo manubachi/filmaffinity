@@ -20,9 +20,9 @@
         extract(PAR);
             // Filtrado de la entrada
         try {
+          $error = [];
           comprobarParametros(PAR);
           extract(array_map('trim', $_POST), EXTR_IF_EXISTS);
-          $error = [];
           $flt = [];
           $flt['titulo'] = comprobarTitulo($error);
           $flt['anyo'] = comprobarAnyo($error);
@@ -38,9 +38,9 @@
         } catch (ParamException $e) {
             header('Location: index.php');
         } catch(ValidationExeception $e) {
-            foreach ($error as $err) {
-              echo "<h4>$err</h4>";
-            }
+            // foreach ($error as $err) {
+            //   echo "<h4>$err</h4>";
+            // }
         }
         ?>
         <br>
@@ -54,12 +54,14 @@
                         <div class="form-group <?= hasError('titulo', $error) ?>">
                             <label for="titulo" class="control-label">Título</label>
                             <input id="titulo" type="text" name="titulo"
-                                   class="form-control" value="<?= $titulo ?>">
+                                   class="form-control" value="<?= $titulo ?>" >
+                            <?php mensajeError('titulo', $error) ?>
                         </div>
                         <div class="form-group <?= hasError('anyo', $error) ?>">
                             <label for="anyo" class="control-label">Año</label>
                             <input id="anyo" type="text" name="anyo"
                                    class="form-control" value="<?= $anyo ?>">
+                            <?php mensajeError('anyo', $error) ?>
                         </div>
                         <div class="form-group">
                             <label for="sinopsis" class="control-label">Sinopsis</label>
@@ -74,6 +76,7 @@
                             <input id="duracion" type="text" name="duracion"
                                    class="form-control"
                                    value="<?= $duracion ?>">
+                            <?php mensajeError('duracion', $error) ?>
                         </div>
                         <div class="form-group <?= hasError('genero', $error) ?>">
                             <label for="genero_id" class="control-label">Género</label>
@@ -93,6 +96,7 @@
                                     endforeach;
                                 ?>
                             </select>
+                            <?php mensajeError('genero_id', $error) ?>
                         </div>
                         <input type="submit" value="Insertar"
                                class="btn btn-success">
