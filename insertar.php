@@ -51,32 +51,32 @@
                 </div>
                 <div class="panel-body">
                     <form action="" method="post">
-                        <div class="form-group">
-                            <label for="titulo">Título</label>
+                        <div class="form-group <?= hasError('titulo', $error) ?>">
+                            <label for="titulo" class="control-label">Título</label>
                             <input id="titulo" type="text" name="titulo"
                                    class="form-control" value="<?= $titulo ?>">
                         </div>
-                        <div class="form-group">
-                            <label for="anyo">Año</label>
+                        <div class="form-group <?= hasError('anyo', $error) ?>">
+                            <label for="anyo" class="control-label">Año</label>
                             <input id="anyo" type="text" name="anyo"
                                    class="form-control" value="<?= $anyo ?>">
                         </div>
                         <div class="form-group">
-                            <label for="sinopsis">Sinopsis</label>
+                            <label for="sinopsis" class="control-label">Sinopsis</label>
                             <textarea id="sinopsis"
                                       name="sinopsis"
                                       rows="8"
                                       cols="80"
                                       class="form-control"><?= $sinopsis ?></textarea>
                         </div>
-                        <div class="form-group">
-                            <label for="duracion">Duración</label>
+                        <div class="form-group <?= hasError('duracion', $error) ?>">
+                            <label for="duracion" class="control-label">Duración</label>
                             <input id="duracion" type="text" name="duracion"
                                    class="form-control"
                                    value="<?= $duracion ?>">
                         </div>
-                        <div class="form-group">
-                            <label for="genero_id">Género</label>
+                        <div class="form-group <?= hasError('genero', $error) ?>">
+                            <label for="genero_id" class="control-label">Género</label>
                             <select class="form-control" name="genero_id">
                                 <option selected value="">--Seleccione un género de la lista--</option>
                                 <?php
