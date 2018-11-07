@@ -38,7 +38,8 @@
                                        FROM peliculas p
                                        JOIN generos g
                                          ON genero_id = g.id
-                                      WHERE position(lower(:titulo) in lower(titulo)) != 0');
+                                      WHERE position(lower(:titulo) in lower(titulo)) != 0
+                                   ORDER BY id');
                 $st->execute([':titulo' => $buscarTitulo]);
                 ?>
             </div>
@@ -74,14 +75,18 @@
                             <?php foreach ($st as $fila): ?>
                                 <tr>
                                     <td><?= filter_var($fila['titulo'], FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?></td>
-                                    <td><?= $fila['anyo'] ?></td>
-                                    <td><?= $fila['sinopsis'] ?></td>
-                                    <td><?= $fila['duracion'] ?></td>
-                                    <td><?= $fila['genero'] ?></td>
+                                    <td><?= h($fila['anyo']) ?></td>
+                                    <td><?= h($fila['sinopsis']) ?></td>
+                                    <td><?= h($fila['duracion']) ?></td>
+                                    <td><?= h($fila['genero']) ?></td>
                                     <td>
-                                        <a href="confirm_borrado.php?id=<?= $fila['id'] ?>"
+                                        <a href="../peliculas/confirm_borrado.php?id=<?= $fila['id'] ?>"
                                            class="btn btn-xs btn-danger">
                                             Borrar
+                                        </a>
+                                        <a href="../peliculas/modificar.php?id=<?= $fila['id'] ?>"
+                                           class="btn btn-xs btn-info">
+                                            Modificar
                                         </a>
                                     </td>
                                 </tr>
@@ -92,7 +97,7 @@
             </div>
             <div class="row">
                 <div class="text-center">
-                    <a href="insertar.php" class="btn btn-info">Insertar una nueva película</a>
+                    <a href="../peliculas/insertar.php" class="btn btn-info">Insertar una nueva película</a>
                 </div>
             </div>
         </div>
