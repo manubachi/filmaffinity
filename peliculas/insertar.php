@@ -9,7 +9,7 @@
     </head>
     <body>
         <?php
-        require './auxiliar.php';
+        require '../comunes/auxiliar.php';
         const PAR = [
             'titulo' => '',
             'anyo' => '',
