@@ -173,13 +173,13 @@ function mostrarFormulario($valores, $error, $accion)
                     <div class="form-group <?= hasError('titulo', $error) ?>">
                         <label for="titulo" class="control-label">Título</label>
                         <input id="titulo" type="text" name="titulo"
-                               class="form-control" value="<?= $titulo ?>" >
+                               class="form-control" value="<?= h($titulo) ?>" >
                         <?php mensajeError('titulo', $error) ?>
                     </div>
                     <div class="form-group <?= hasError('anyo', $error) ?>">
                         <label for="anyo" class="control-label">Año</label>
                         <input id="anyo" type="text" name="anyo"
-                               class="form-control" value="<?= $anyo ?>">
+                               class="form-control" value="<?= h($anyo) ?>">
                         <?php mensajeError('anyo', $error) ?>
                     </div>
                     <div class="form-group">
@@ -188,13 +188,13 @@ function mostrarFormulario($valores, $error, $accion)
                                   name="sinopsis"
                                   rows="8"
                                   cols="80"
-                                  class="form-control"><?= $sinopsis ?></textarea>
+                                  class="form-control"><?= h($sinopsis) ?></textarea>
                     </div>
                     <div class="form-group <?= hasError('duracion', $error) ?>">
                         <label for="duracion" class="control-label">Duración</label>
                         <input id="duracion" type="text" name="duracion"
                                class="form-control"
-                               value="<?= $duracion ?>">
+                               value="<?= h($duracion) ?>">
                         <?php mensajeError('duracion', $error) ?>
                     </div>
                     <div class="form-group <?= hasError('genero_id', $error) ?>">
@@ -206,9 +206,9 @@ function mostrarFormulario($valores, $error, $accion)
                                 $res = '';
                                 foreach ($st as $fila):
                                     ?>
-                                    <option <?= $genero_id == $fila['id'] ? 'selected' : '' ?>
-                                        value="<?= $fila['id'] ?>">
-                                        <?= $fila['genero'] ?>
+                                    <option <?= h($genero_id) == h($fila['id']) ? 'selected' : '' ?>
+                                        value="<?= h($fila['id']) ?>">
+                                        <?= h($fila['genero']) ?>
                                     </option>
                                     <?php
                                 endforeach;
