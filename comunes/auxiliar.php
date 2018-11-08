@@ -254,6 +254,11 @@ function comprobarNomGenero(&$error)
     } elseif (mb_strlen($fltGenero) > 255) {
         $error['genero'] =  'El nombre del género es demasiado largo.';
     }
+    $st = $pdo->prepare('SELECT * FROM generos WHERE lower(genero) = lower(:genero)');
+    $st->execute([':genero' => $fltGenero]);
+    if ($st->fetch()) {
+      $error['genero'] = 'Ya existe dicho género';
+    }
     return $fltGenero;
 }
 
@@ -306,4 +311,11 @@ function modificarGenero($pdo, $fila, $id)
                             SET genero = :genero
                           WHERE id = :id');
     $st->execute($fila + ['id' => $id]);
+}
+
+function compruebaUsoGenero($pdo, $id)
+{
+    $st = $pdo->prepare('SELECT * from peliculas WHERE genero_id = :id;');
+    $st->execute([':id' => $id]);
+    return $st->fetch();
 }

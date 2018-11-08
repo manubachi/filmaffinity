@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="es" dir="ltr">
     <head>
@@ -12,6 +13,15 @@
     </head>
     <body>
         <div class="container">
+          <br>
+          <?php if(isset($_SESSION['mensaje'])): ?>
+            <div class="row">
+              <div class="alert alert-success" role="alert">
+                <?= $_SESSION['mensaje'] ?>
+              </div>
+            </div>
+            <?php unset($_SESSION['mensaje']); ?>
+          <?php endif; ?>
             <div class="row">
                 <?php
                 require '../comunes/auxiliar.php';
@@ -21,12 +31,16 @@
                     $pdo->beginTransaction();
                     $pdo->exec('LOCK TABLE peliculas IN SHARE MODE');
                     if (!buscarPelicula($pdo, $id)) { ?>
+                      <div class="alert alert-danger" role="alert">
                         <h3>La película no existe.</h3>
+                      </div>
                         <?php
                     } else {
                         $st = $pdo->prepare('DELETE FROM peliculas WHERE id = :id');
                         $st->execute([':id' => $id]); ?>
-                        <h3>Película borrada correctamente.</h3>
+                        <div class="alert alert-success" role="alert">
+                          <h3>Película borrada correctamente.</h3>
+                        </div>
                         <?php
                     }
                     $pdo->commit();
@@ -100,14 +114,16 @@
                     <a href="../peliculas/insertar.php" class="btn btn-info">Insertar una nueva película</a>
                 </div>
             </div>
-            <nav class="navbar navbar-default navbar-fixed-bottom navbar-inverse">
-              <div class="container">
-                <p class="navbar-text"> Tienes que aceptar las políticas de cookies</p>
-                <p class="navbar-text navbar-right">
-                    <a href="crear_cookie.php" class="btn btn-success">Aceptar cookies</a>
-                </p>
-              </div>
-            </nav>
+            <?php if(!isset($_COOKIE['acepta'])): ?>
+              <nav class="navbar navbar-default navbar-fixed-bottom navbar-inverse">
+                <div class="container">
+                  <p class="navbar-text"> Tienes que aceptar las políticas de cookies</p>
+                  <p class="navbar-text navbar-right">
+                      <a href="../peliculas/crear_cookie.php" class="btn btn-success">Aceptar cookies</a>
+                  </p>
+                </div>
+              </nav>
+            <?php endif ?>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
