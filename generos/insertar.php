@@ -15,12 +15,12 @@
             // Filtrado de la entrada
         try {
           $error = [];
+          $pdo = conectar();
           comprobarParametros(GEN);
           $valores = array_map('trim', $_POST);
           $flt = [];
           $flt['genero'] = comprobarNomGenero($error);
           comprobarErrores($error);
-          $pdo = conectar();
           insertarGenero($pdo, $flt);
           header('Location: index.php');
         } catch(EmptyParamException|ValidationExeception $e){

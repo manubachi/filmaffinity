@@ -210,7 +210,7 @@ function mostrarFormulario($valores, $error, $accion)
                                 $res = '';
                                 foreach ($st as $fila):
                                     ?>
-                                    <option <?= h($genero_id) == h($fila['id']) ? 'selected' : '' ?>
+                                    <option <?= selected($fila['id'], $genero_id) ?>
                                         value="<?= h($fila['id']) ?>">
                                         <?= h($fila['genero']) ?>
                                     </option>
@@ -227,6 +227,11 @@ function mostrarFormulario($valores, $error, $accion)
             </div>
         </div>
   <?php
+}
+
+function selected($a,$b)
+{
+  return $a == $b ? 'selected' : '';
 }
 
 function h($cadena)
