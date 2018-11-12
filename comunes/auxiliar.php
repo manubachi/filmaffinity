@@ -327,11 +327,38 @@ function politicaCookies()
         <div class="container">
           <p class="navbar-text"> Tienes que aceptar las políticas de cookies</p>
           <p class="navbar-text navbar-right">
-              <a href="../peliculas/crear_cookie.php" class="btn btn-success">Aceptar cookies</a>
+              <a href="../comunes/crear_cookie.php" class="btn btn-success">Aceptar cookies</a>
           </p>
         </div>
       </nav>
   <?php endif ;
+}
+
+function navLogin()
+{
+    ?>
+    <nav class="navbar navbar-default navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">FilmAffinity</a>
+            </div>
+            <div class="navbar-text navbar-right">
+                <a href="login.php" class="btn btn-success">Login</a>
+            </div>
+        </div>
+    </nav>
+    <?php
+}
+
+function menu($accion)
+{
+    ?>
+    <ul class="nav nav-tabs">
+      <li role="presentation" class="<?= $accion == 'home' ? 'active' : '' ?>"><a href="../index.php">Home</a></li>
+      <li role="presentation" class="<?= $accion == 'peliculas' ? 'active' : '' ?>"><a href="../peliculas/index.php">Peliculas</a></li>
+      <li role="presentation" class="<?= $accion == 'generos' ? 'active' : '' ?>"><a href="../generos/index.php">Géneros</a></li>
+    </ul>
+    <?php
 }
 
 function comprobarLogin(&$error)

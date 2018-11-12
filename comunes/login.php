@@ -11,6 +11,7 @@
     <body>
         <?php
         require '../comunes/auxiliar.php';
+        menu('home');
          const PAR_LOGIN = ['login' => '', 'password' => ''];
          $valores = PAR_LOGIN;
          try {

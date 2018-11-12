@@ -12,49 +12,42 @@
         </style>
     </head>
     <body>
-        <nav class="navbar navbar-default navbar-inverse">
-            <div class="container">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#">FilmAffinity</a>
-                </div>
-                <div class="navbar-text navbar-right">
-                    <a href="login.php" class="btn btn-success">Login</a>
-                </div>
-            </div>
-        </nav>
+        <?php
+        require '../comunes/auxiliar.php';
+        navLogin() ;
+        menu('peliculas');
+        ?>
         <div class="container">
-          <br>
-          <?php if(isset($_SESSION['mensaje'])): ?>
-            <div class="row">
-              <div class="alert alert-success" role="alert">
-                <?= $_SESSION['mensaje'] ?>
-              </div>
-            </div>
-            <?php unset($_SESSION['mensaje']); ?>
-          <?php endif; ?>
+            <br>
+            <?php if (isset($_SESSION['mensaje'])): ?>
+                <div class="row">
+                    <div class="alert alert-success" role="alert">
+                        <?= $_SESSION['mensaje'] ?>
+                    </div>
+                </div>
+                <?php unset($_SESSION['mensaje']); ?>
+            <?php endif ?>
             <div class="row">
                 <?php
-                require '../comunes/auxiliar.php';
+
                 $pdo = conectar();
+
                 if (isset($_POST['id'])) {
                     $id = $_POST['id'];
                     $pdo->beginTransaction();
                     $pdo->exec('LOCK TABLE peliculas IN SHARE MODE');
                     if (!buscarPelicula($pdo, $id)) { ?>
-                      <div class="alert alert-danger" role="alert">
                         <h3>La película no existe.</h3>
-                      </div>
                         <?php
                     } else {
                         $st = $pdo->prepare('DELETE FROM peliculas WHERE id = :id');
                         $st->execute([':id' => $id]); ?>
-                        <div class="alert alert-success" role="alert">
-                          <h3>Película borrada correctamente.</h3>
-                        </div>
+                        <h3>Película borrada correctamente.</h3>
                         <?php
                     }
                     $pdo->commit();
                 }
+
                 $buscarTitulo = isset($_GET['buscarTitulo'])
                 ? trim($_GET['buscarTitulo'])
                 : '';
@@ -98,17 +91,17 @@
                         <tbody>
                             <?php foreach ($st as $fila): ?>
                                 <tr>
-                                    <td><?= filter_var($fila['titulo'], FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?></td>
+                                    <td><?= h($fila['titulo']) ?></td>
                                     <td><?= h($fila['anyo']) ?></td>
                                     <td><?= h($fila['sinopsis']) ?></td>
                                     <td><?= h($fila['duracion']) ?></td>
                                     <td><?= h($fila['genero']) ?></td>
                                     <td>
-                                        <a href="../peliculas/confirm_borrado.php?id=<?= $fila['id'] ?>"
+                                        <a href="confirm_borrado.php?id=<?= $fila['id'] ?>"
                                            class="btn btn-xs btn-danger">
                                             Borrar
                                         </a>
-                                        <a href="../peliculas/modificar.php?id=<?= $fila['id'] ?>"
+                                        <a href="modificar.php?id=<?= $fila['id'] ?>"
                                            class="btn btn-xs btn-info">
                                             Modificar
                                         </a>
@@ -121,7 +114,7 @@
             </div>
             <div class="row">
                 <div class="text-center">
-                    <a href="../peliculas/insertar.php" class="btn btn-info">Insertar una nueva película</a>
+                    <a href="insertar.php" class="btn btn-info">Insertar una nueva película</a>
                 </div>
             </div>
             <?php politicaCookies() ?>

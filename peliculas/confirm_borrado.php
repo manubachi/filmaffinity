@@ -11,6 +11,7 @@
     <body>
         <?php
         require '../comunes/auxiliar.php';
+        menu('peliculas');
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
         } else {

@@ -16,10 +16,14 @@
         </style>
     </head>
     <body>
+        <?php
+        require '../comunes/auxiliar.php';
+        navLogin() ;
+        menu('generos');
+        ?>
         <div class="container">
             <div class="row">
                 <?php
-                require '../comunes/auxiliar.php';
                 $pdo = conectar();
                 if (isset($_POST['id'])) {
                     $id = $_POST['id'];
