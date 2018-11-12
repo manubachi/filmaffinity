@@ -12,6 +12,16 @@
         </style>
     </head>
     <body>
+        <nav class="navbar navbar-default navbar-inverse">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">FilmAffinity</a>
+                </div>
+                <div class="navbar-text navbar-right">
+                    <a href="login.php" class="btn btn-success">Login</a>
+                </div>
+            </div>
+        </nav>
         <div class="container">
           <br>
           <?php if(isset($_SESSION['mensaje'])): ?>
@@ -114,16 +124,7 @@
                     <a href="../peliculas/insertar.php" class="btn btn-info">Insertar una nueva película</a>
                 </div>
             </div>
-            <?php if(!isset($_COOKIE['acepta'])): ?>
-              <nav class="navbar navbar-default navbar-fixed-bottom navbar-inverse">
-                <div class="container">
-                  <p class="navbar-text"> Tienes que aceptar las políticas de cookies</p>
-                  <p class="navbar-text navbar-right">
-                      <a href="../peliculas/crear_cookie.php" class="btn btn-success">Aceptar cookies</a>
-                  </p>
-                </div>
-              </nav>
-            <?php endif ?>
+            <?php politicaCookies() ?>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
