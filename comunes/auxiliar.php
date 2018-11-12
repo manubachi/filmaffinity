@@ -35,6 +35,13 @@ function buscarPelicula($pdo, $id)
     return $st->fetch();
 }
 
+function buscarUsuario($pdo, $id)
+{
+    $st = $pdo->prepare('SELECT * FROM usuarios WHERE id = :id');
+    $st->execute([':id' => $id]);
+    return $st->fetch();
+}
+
 function comprobarId()
   {
     $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
@@ -334,7 +341,7 @@ function politicaCookies()
   <?php endif ;
 }
 
-function menu()
+function menu($accion)
 {
     ?>
     <nav class="navbar navbar-default navbar-inverse">
@@ -342,25 +349,25 @@ function menu()
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">FilmAffinity</a>
             </div>
-            ?>
-            <div class="collapse navbar-collapse">
+            <div class="collapse navbar-collapse navbar-center">
               <ul class="nav navbar-nav">
-                <li role="presentation" class="<?= $accion == 'home' ? 'active' : '' ?>"><a href="../index.php">Home</a></li>
-                <li role="presentation" class="<?= $accion == 'peliculas' ? 'active' : '' ?>"><a href="../peliculas/index.php">Peliculas</a></li>
-                <li role="presentation" class="<?= $accion == 'generos' ? 'active' : '' ?>"><a href="../generos/index.php">Géneros</a></li>
+                <li role="separator" class="divider"></li>
+                <li class="<?= $accion == 'home' ? 'active' : '' ?>"><a href="../index.php">Home</a></li>
+                <li class="<?= $accion == 'peliculas' ? 'active' : '' ?>"><a href="../peliculas/index.php">Peliculas</a></li>
+                <li class="<?= $accion == 'generos' ? 'active' : '' ?>"><a href="../generos/index.php">Géneros</a></li>
               </ul>
-            </div>
-            <div class="navbar-text navbar-right">
-              <?php if (isset($_SESSION['usuario'])) :  ?>
-                <span class="label label-info glyphicon glyphicon-user"> <?= $_SESSION['usuario']?></span>
-                <a href="../comunes/logout.php" class="btn btn-success">
-                  <span class="glyphicon glyphicon-off" aria-hidden="true"></span> Logout
-                </a>
-              <?php else:  ?>
-                <a href="../comunes/login.php" class="btn btn-success">
-                  <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Login
-                </a>
-              <?php endif; ?>
+              <div class="navbar-text navbar-right">
+                <?php if (isset($_SESSION['usuario'])) :  ?>
+                  <span class="label label-info glyphicon glyphicon-user"> <?= $_SESSION['usuario']?></span>
+                  <a href="../comunes/logout.php" class="btn btn-success">
+                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span> Logout
+                  </a>
+                <?php else:  ?>
+                  <a href="../comunes/login.php" class="btn btn-success">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Login
+                  </a>
+                <?php endif; ?>
+              </div>
             </div>
         </div>
     </nav>
