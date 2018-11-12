@@ -14,7 +14,6 @@
     <body>
         <?php
         require '../comunes/auxiliar.php';
-        navLogin() ;
         menu('peliculas');
         ?>
         <div class="container">

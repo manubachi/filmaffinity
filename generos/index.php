@@ -18,7 +18,6 @@
     <body>
         <?php
         require '../comunes/auxiliar.php';
-        navLogin() ;
         menu('generos');
         ?>
         <div class="container">
