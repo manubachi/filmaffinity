@@ -13,6 +13,10 @@
         require '../comunes/auxiliar.php';
         menu('generos');
 
+        if (!isset($_SESSION['usuario'])) {
+            $_SESSION['mensaje'] = 'Debe iniciar sesión para modificar géneros.';
+            header('Location: index.php');
+        }
         try {
           $pdo = conectar();
           $error = [];

@@ -13,6 +13,11 @@
         require '../comunes/auxiliar.php';
         menu('peliculas');
 
+        if (!isset($_SESSION['usuario'])) {
+            $_SESSION['mensaje'] = 'Debe iniciar sesión para modificar películas.';
+            header('Location: index.php');
+        }
+
         try {
           $pdo = conectar();
           $error = [];

@@ -12,6 +12,15 @@
         <?php
         require '../comunes/auxiliar.php';
         menu('generos');
+
+        if (!isset($_SESSION['usuario'])) {
+            $_SESSION['mensaje'] = 'Debe iniciar sesión para poder borrar géneros';
+            header('Location: index.php');
+        } elseif ($_SESSION['usuario'] != 'admin') {
+            $_SESSION['mensaje'] = 'Debe ser administrador para poder borrar géneros';
+            header('Location: index.php');
+        }
+
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
         } else {

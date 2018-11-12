@@ -343,7 +343,12 @@ function navLogin()
                 <a class="navbar-brand" href="#">FilmAffinity</a>
             </div>
             <div class="navbar-text navbar-right">
-                <a href="login.php" class="btn btn-success">Login</a>
+              <?php if (isset($_SESSION['usuario'])) :  ?>
+                <?= $_SESSION['usuario']?>
+                <a href="../comunes/logout.php" class="btn btn-success">Logout</a>
+              <?php else:  ?>
+                <a href="../comunes/login.php" class="btn btn-success">Login</a>
+              <?php endif; ?>
             </div>
         </div>
     </nav>
@@ -389,8 +394,9 @@ function comprobarUsuario($valores, $pdo, &$error)
     $fila = $st->fetch();
     if ($fila !== false) {
         if (password_verify($password, $fila['password'])) {
-            return;
+            return $fila;
         }
     }
     $error['sesion'] = 'El usuario o la contraseña son incorrectos.';
+    return false;
 }

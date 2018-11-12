@@ -21,14 +21,15 @@
             $valores = array_map('trim', $_POST);
             $flt['login'] = comprobarLogin($error);
             $flt['password'] = comprobarPassword($error);
-            comprobarUsuario($flt, $pdo, $error);
+            $usuario = comprobarUsuario($flt, $pdo, $error);
             comprobarErrores($error);
             // Sólo queda loguearse
-            header('Location: index.php');
+            $_SESSION['usuario'] = $usuario['login'];
+            header('Location: ../peliculas/index.php');
         } catch (EmptyParamException|ValidationException $e) {
             // No hago nada
         } catch (ParamException $e) {
-            header('Location: index.php');
+            header('Location: ../index.php');
         }
         ?>
         <div class="container">
