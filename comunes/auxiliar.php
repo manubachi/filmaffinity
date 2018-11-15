@@ -341,6 +341,18 @@ function politicaCookies()
   <?php endif ;
 }
 
+function pie()
+{
+    ?>
+    <nav class="navbar navbar-default navbar-fixed-bottom navbar-inverse">
+        <div class="container">
+            <p class="navbar-text"> FilmAffinity </p>
+            <p class="navbar-text"> Manuel Alejandro Benítez García </p>
+        </div>
+    </nav>
+    <?php
+}
+
 function menu($accion)
 {
     ?>
