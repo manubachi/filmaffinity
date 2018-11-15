@@ -1,17 +1,13 @@
 <?php
-trait Saludador
-{
-    public $mensajeSaludo = "Hola\n";
+namespace espacio1;
 
-    public function saluda()
-    {
-      echo $this->$mensajeSaludo;
-    }
-}
+use espacio5\Saludador as Sa;
+
+require 'Saludador.php';
 
 class Usuario
 {
-    use Saludador;
+    use Sa;
 
     const ADMIN = 'admin';
 

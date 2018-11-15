@@ -11,7 +11,7 @@ const GEN = [
     'genero' => '',
 ];
 
-class ValidationExeception extends Exception
+class ValidationException extends Exception
 {
 }
 
@@ -154,7 +154,7 @@ function comprobarParametros($par)
 function comprobarErrores($error)
 {
   if (!empty($error)) {
-      throw new ValidationExeception();
+      throw new ValidationException();
   }
 }
 
@@ -393,8 +393,10 @@ function comprobarLogin(&$error)
     $login = trim(filter_input(INPUT_POST, 'login'));
     if ($login === '') {
         $error['login'] = 'El nombre de usuario no puede estar vacío.';
+    } else{
+
+      return $login;
     }
-    return $login;
 }
 
 function comprobarPassword(&$error)
@@ -402,8 +404,10 @@ function comprobarPassword(&$error)
     $password = trim(filter_input(INPUT_POST, 'password'));
     if ($password === '') {
         $error['password'] = 'La contraseña no puede estar vacía.';
+    }else{
+
+      return $password;
     }
-    return $password;
 }
 
 function comprobarUsuario($valores, $pdo, &$error)
@@ -412,7 +416,7 @@ function comprobarUsuario($valores, $pdo, &$error)
     $st = $pdo->prepare('SELECT *
                            FROM usuarios
                           WHERE login = :login');
-    $st->execute([':login' => $login]);
+    $st->execute(['login' => $login]);
     $fila = $st->fetch();
     if ($fila !== false) {
         if (password_verify($password, $fila['password'])) {

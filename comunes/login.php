@@ -12,6 +12,17 @@
         <?php
         require '../comunes/auxiliar.php';
         menu('home');
+        ?>
+        <div class="container">
+        <?php
+        if (isset($_SESSION['mensaje'])): ?>
+          <div class="row">
+                <div class="alert alert-danger" role="alert">
+                    <?= $_SESSION['mensaje'] ?>
+                </div>
+            </div>
+            <?php unset($_SESSION['sesion']);
+        endif;
          const PAR_LOGIN = ['login' => '', 'password' => ''];
          $valores = PAR_LOGIN;
          try {
@@ -19,26 +30,30 @@
             $pdo = conectar();
             comprobarParametros(PAR_LOGIN);
             $valores = array_map('trim', $_POST);
+            $flt = [];
             $flt['login'] = comprobarLogin($error);
             $flt['password'] = comprobarPassword($error);
             $usuario = comprobarUsuario($flt, $pdo, $error);
             comprobarErrores($error);
-            // Sólo queda loguearse
-            $_SESSION['usuario'] = $usuario['login'];
-            header('Location: ../index.php');
+            if ($usuario === false) {
+               $_SESSION['mensaje'] = 'El usuario o la contraseña son incorrectos.';
+               header('Location: login.php');
+             }else {
+               $_SESSION['usuario'] = $usuario['login'];
+               header('Location: ../index.php');
+           }
         } catch (EmptyParamException|ValidationException $e) {
             // No hago nada
         } catch (ParamException $e) {
             header('Location: ../index.php');
         }
         ?>
-        <div class="container">
             <div class="row">
                 <form action="" method="post">
                     <div class="form-group">
                         <label for="login">Usuario:</label>
-                        <input class="form-control <?= hasError('usuario', $error) ?>" type="text" name="login" value="">
-                        <?php mensajeError('usuario', $error) ?>
+                        <input class="form-control <?= hasError('login', $error) ?>" type="text" name="login" value="">
+                        <?php mensajeError('login', $error) ?>
                     </div>
                     <div class="form-group">
                         <label for="password">Contraseña:</label>
