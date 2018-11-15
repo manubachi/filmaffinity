@@ -143,18 +143,18 @@ function modificarPelicula($pdo, $fila, $id)
 function comprobarParametros($par)
 {
   if (empty($_POST)) {
-    throw new EmptyParamException;
+    throw new EmptyParamException();
   }
   if (!empty(array_diff_key($par, $_POST)) ||
       !empty(array_diff_key($_POST, $par))) {
-        throw new ParamException;
+        throw new ParamException();
   }
 }
 
 function comprobarErrores($error)
 {
   if (!empty($error)) {
-      throw new ValidationExeception;
+      throw new ValidationExeception();
   }
 }
 
@@ -412,7 +412,7 @@ function comprobarUsuario($valores, $pdo, &$error)
     $st = $pdo->prepare('SELECT *
                            FROM usuarios
                           WHERE login = :login');
-    $st->execute(['login' => $login]);
+    $st->execute([':login' => $login]);
     $fila = $st->fetch();
     if ($fila !== false) {
         if (password_verify($password, $fila['password'])) {

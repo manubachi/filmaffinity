@@ -38,25 +38,19 @@
                     $id = $_POST['id'];
                     $pdo->beginTransaction();
                     $pdo->exec('LOCK TABLE generos IN SHARE MODE');
-                    if (!buscarGenero($pdo, $id)) { ?>
-                      <div class="alert alert-danger" role="alert">
-                        <h4>El género no existe.</h4>
-                      </div>
-                    <?php
-                    } elseif (compruebaUsoGenero($pdo, $id)) { ?>
-                      <div class="alert alert-danger" role="alert">
-                        <h4> Error: El género está en uso, no se puede borrar un género en uso. </h4>
-                      </div>
-                    <?php
+                    if (!buscarGenero($pdo, $id)) {
+                        $_SESSION['mensaje'] = "El género no existe";
+                        header('Location: index,php');
+                    } elseif (compruebaUsoGenero($pdo, $id)) {
+                        $_SESSION['mensaje'] = "El género está en uso y no se puede borrar";
+                        header('Location: index,php');
                     } else {
                         $st = $pdo->prepare('DELETE FROM generos WHERE id = :id');
-                        $st->execute([':id' => $id]); ?>
-                        <div class="alert alert-success" role="alert">
-                          <h4>Género borrado correctamente.</h4>
-                        </div>
-                    <?php
+                        $st->execute([':id' => $id]);
+                        $_SESSION['mensaje'] = "Género borrado correctamente";
+                        $pdo->commit();
+                        header('Location: index,php');
                     }
-                    $pdo->commit();
                 }
                 $buscarGenero = isset($_GET['buscarGenero'])
                 ? trim($_GET['buscarGenero'])

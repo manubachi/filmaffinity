@@ -37,11 +37,13 @@
                 <form action="" method="post">
                     <div class="form-group">
                         <label for="login">Usuario:</label>
-                        <input class="form-control" type="text" name="login" value="">
+                        <input class="form-control <?= hasError('usuario', $error) ?>" type="text" name="login" value="">
+                        <?php mensajeError('usuario', $error) ?>
                     </div>
                     <div class="form-group">
                         <label for="password">Contraseña:</label>
-                        <input class="form-control" type="password" name="password" value="">
+                        <input class="form-control <?= hasError('password', $error) ?>" type="password" name="password" value="">
+                        <?php mensajeError('password', $error)  ?>
                     </div>
                     <button type="submit" class="btn btn-default">Iniciar sesión</button>
                 </form>
