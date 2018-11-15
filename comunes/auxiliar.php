@@ -334,7 +334,7 @@ function politicaCookies()
         <div class="container">
           <p class="navbar-text"> Tienes que aceptar las políticas de cookies</p>
           <p class="navbar-text navbar-right">
-              <a href="../comunes/crear_cookie.php" class="btn btn-success">Aceptar cookies</a>
+              <a href="crear_cookie.php" class="btn btn-success">Aceptar cookies</a>
           </p>
         </div>
       </nav>
@@ -344,12 +344,14 @@ function politicaCookies()
 function pie()
 {
     ?>
-    <nav class="navbar navbar-default navbar-fixed-bottom navbar-inverse">
+    <br>
+    <br>
+    <footer class="footer navbar-inverse">
         <div class="container">
             <p class="navbar-text"> FilmAffinity </p>
             <p class="navbar-text"> Manuel Alejandro Benítez García </p>
         </div>
-    </nav>
+    </footer>
     <?php
 }
 

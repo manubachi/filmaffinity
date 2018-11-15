@@ -35,16 +35,16 @@
                     $id = $_POST['id'];
                     $pdo->beginTransaction();
                     $pdo->exec('LOCK TABLE peliculas IN SHARE MODE');
-                    if (!buscarPelicula($pdo, $id)) { ?>
-                        <h3>La película no existe.</h3>
-                        <?php
+                    if (!buscarPelicula($pdo, $id)) {
+                        $_SESSION['mensaje'] = "La película no existe.";
+                        header('Location: index.php');
                     } else {
                         $st = $pdo->prepare('DELETE FROM peliculas WHERE id = :id');
-                        $st->execute([':id' => $id]); ?>
-                        <h3>Película borrada correctamente.</h3>
-                        <?php
+                        $st->execute([':id' => $id]);
+                        $_SESSION['mensaje'] = "Película borrada correctamente.";
+                        $pdo->commit();
+                        header('Location: index.php');
                     }
-                    $pdo->commit();
                 }
 
                 $buscarTitulo = isset($_GET['buscarTitulo']) ?
@@ -121,7 +121,6 @@
             politicaCookies() ;
             pie();
             ?>
-
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
