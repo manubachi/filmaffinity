@@ -50,14 +50,14 @@
         ?>
             <div class="row">
                 <form action="" method="post">
-                    <div class="form-group">
+                    <div class="form-group <?= hasError('login', $error) ?>">
                         <label for="login">Usuario:</label>
-                        <input id="login" class="form-control <?= hasError('login', $error) ?>" type="text" name="login" value="">
+                        <input id="login" class="form-control" type="text" name="login" value="">
                         <?php mensajeError('login', $error) ?>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group <?= hasError('password', $error) ?>">
                         <label for="password">Contraseña:</label>
-                        <input id="password" class="form-control <?= hasError('password', $error) ?>" type="password" name="password" value="">
+                        <input id="password" class="form-control" type="password" name="password" value="">
                         <?php mensajeError('password', $error)  ?>
                     </div>
                     <button type="submit" class="btn btn-default">Iniciar sesión</button>
