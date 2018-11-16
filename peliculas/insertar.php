@@ -30,7 +30,7 @@
           insertarPelicula($pdo, $flt);
           $_SESSION['mensaje'] = 'Película insertada correctamente';
           header('Location: index.php');
-        } catch(EmptyParamException|ValidationExeception $e){
+      } catch(EmptyParamException|ValidationException $e){
             //No hago nada
         } catch (ParamException $e) {
             header('Location: index.php');

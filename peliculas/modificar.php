@@ -35,7 +35,7 @@
           modificarPelicula($pdo, $flt, $id);
           $_SESSION['mensaje'] = 'Película modificada correctamente';
           header('Location: index.php');
-        } catch(EmptyParamException|ValidationExeception $e){
+        } catch(EmptyParamException|ValidationException $e){
             //No hago nada
         } catch (ParamException $e) {
             header('Location: index.php');

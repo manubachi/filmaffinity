@@ -29,7 +29,7 @@
           comprobarErrores($error);
           modificarGenero($pdo, $flt, $id);
           header('Location: index.php');
-        } catch(EmptyParamException|ValidationExeception $e){
+        } catch(EmptyParamException|ValidationException $e){
             //No hago nada
         } catch (ParamException $e) {
             header('Location: index.php');
