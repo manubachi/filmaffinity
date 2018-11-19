@@ -1,0 +1,7 @@
+#VERSIONADO SEMÁNTICO#
+
+ Considera un formato de versión del tipo X.Y.Z (Major.Minor.Patch)
+ Los arreglos de bugs que no cambian el API incrementan el patch,
+ los cambios y adiciones que no rompen la compatibilidad de las dependencias
+ anteriores incrementan el minor,
+ y los cambios que rompen la compatibilidad incrementan el major.
