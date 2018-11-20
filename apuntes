@@ -5,3 +5,32 @@
  los cambios y adiciones que no rompen la compatibilidad de las dependencias
  anteriores incrementan el minor,
  y los cambios que rompen la compatibilidad incrementan el major.
+
+#COMPOSER#
+
+  en la carpeta vendor se encuentran todos los componentes del paquete que hayamos
+  instalado usando 'composer require'.
+
+  En composer.json se encuentran los nombres de los paquetes que usamos en producción
+  y en desarrollo (Restricciones de versiones).
+
+  En composer.lock -> indica exactamente como debe usarse y que versión es la necesaria
+  de los paquetes que usa nuestro programa.
+
+  --RESTRICCIONES--
+  Se pueden hacer restricciones poniendo la versión exacta del paquete que queramos
+  en el composer.json. Otra forma es poner rangos: ">= 4.2.1 < 4.4.0" (Se permite desde el 4.2.1 hasta el 4.4.0 sin incluirlo)
+  Otro ejemplo de rango: "4.2.1 || 4.2.2" (O una versión o la otra).
+  ejemplo : " 1.0 - 2.0 " == ">=1.0 < 2.1".
+  ejemplo: "1.0.*" (Cualquier versión 1.0.)
+  ejemplo: "~4.3.1" Indica que puede variar el último número pero que nunca cambia el anterior ni el primero.
+  ejemplo : "^4.3.1" Indica que la versión menor del paquete debe ser la 4.3.1
+
+  composer install -> instala los paquetes que se necesitan para el programa y que se encuentran
+  en el composer.json y composer.lock.
+
+  composer update -> actualiza de versión los paquetes
+
+#AUTOLOADING#
+
+  Mecanismo que permite cargar una clase en el momento que lo utiliza
