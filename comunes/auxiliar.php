@@ -28,6 +28,25 @@ function conectar()
     return new PDO('pgsql:host=localhost;dbname=fa', 'fa', 'fa');
 }
 
+function cabecera($titulo)
+{
+    ?>
+    <!DOCTYPE html>
+    <html lang="es" dir="ltr">
+        <head>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title><?= $titulo ?></title>
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+            <style media="screen">
+                #busqueda { margin-top: 1em; }
+            </style>
+        </head>
+        <body>
+    <?php
+}
+
 function buscarPelicula($pdo, $id)
 {
     $st = $pdo->prepare('SELECT * FROM peliculas WHERE id = :id');
@@ -175,6 +194,8 @@ function mostrarFormulario($valores, $error, $accion)
     extract($valores);
 
     ?>
+    <br>
+    <div class="container">
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title"><?= $accion ?> película...</h3>
@@ -275,6 +296,8 @@ function mostrarFormularioGen($valores, $error, $accion)
     extract($valores);
 
     ?>
+    <br>
+    <div class="container">
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title"><?= $accion ?> género...</h3>
@@ -344,14 +367,19 @@ function politicaCookies()
 function pie()
 {
     ?>
-    <br>
-    <br>
-    <footer class="footer navbar-inverse">
-        <div class="container">
-            <p class="navbar-text"> FilmAffinity </p>
-            <p class="navbar-text"> Manuel Alejandro Benítez García </p>
+            <br>
+            <br>
+            <footer class="footer navbar-inverse">
+                <div class="container">
+                    <p class="navbar-text"> FilmAffinity </p>
+                    <p class="navbar-text"> Manuel Alejandro Benítez García </p>
+                </div>
+            </footer>
         </div>
-    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    </body>
+</html>
     <?php
 }
 
@@ -425,4 +453,113 @@ function comprobarUsuario($valores, $pdo, &$error)
     }
     $error['sesion'] = 'El usuario o la contraseña son incorrectos.';
     return false;
+}
+function compruebaMensajes($mensaje, $tipo)
+{
+    if (isset($_SESSION["$mensaje"])): ?>
+        <div class="row">
+            <div class="alert alert-<?=$tipo?>" role="alert">
+                <?= $_SESSION["$mensaje"] ?>
+            </div>
+        </div>
+        <?php unset($_SESSION["$mensaje"]);
+    endif ;
+}
+
+function tablaPeliculas($st)
+{ ?>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered table-hover table-striped">
+                <thead>
+                    <th>Título</th>
+                    <th>Año</th>
+                    <th>Sinopsis</th>
+                    <th>Duración</th>
+                    <th>Género</th>
+                    <th>Acciones</th>
+                </thead>
+                <tbody>
+                    <?php foreach ($st as $fila): ?>
+                        <tr>
+                            <td><?= h($fila['titulo']) ?></td>
+                            <td><?= h($fila['anyo']) ?></td>
+                            <td><?= h($fila['sinopsis']) ?></td>
+                            <td><?= h($fila['duracion']) ?></td>
+                            <td><?= h($fila['genero']) ?></td>
+                            <td>
+                                <a href="confirm_borrado.php?id=<?= $fila['id'] ?>"
+                                      class="btn btn-xs btn-danger">
+                                    Borrar
+                                </a>
+                                <a href="modificar.php?id=<?= $fila['id'] ?>"
+                                      class="btn btn-xs btn-info">
+                                    Modificar
+                                </a>
+                            </td>
+                        </tr>
+                    <?php endforeach ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <?php
+}
+
+function tablaGeneros($st)
+{ ?>
+    <div class="row">
+        <div class="col-sm" id="tabla" >
+            <table class="table table-bordered table-hover table-striped" >
+                <thead>
+                    <th>Genero</th>
+                    <th>Acciones</th>
+                </thead>
+                <tbody>
+                    <?php foreach ($st as $fila): ?>
+                        <tr>
+                            <td><?= h($fila['genero']) ?></td>
+                            <td>
+                                <a href="../generos/confirm_borrado.php?id=<?= $fila['id'] ?>"
+                                    class="btn btn-xs btn-danger">
+                                    Borrar
+                                </a>
+                                <a href="../generos/modificar.php?id=<?= $fila['id'] ?>"
+                                    class="btn btn-xs btn-info">
+                                    Modificar
+                                </a>
+                            </td>
+                        </tr>
+                    <?php endforeach ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <?php
+}
+
+function botonInsertar($url, $mensaje)
+{ ?>
+    <div class="row">
+        <div class="text-center">
+            <a href="<?= $url ?>" class="btn btn-info"><?= $mensaje ?></a>
+        </div>
+    </div>
+    <?php
+}
+
+function preguntarBorrado($id)
+{ ?>
+    <div class="container">
+        <div class="row">
+            <h3>¿Seguro que desea borrar el género?</h3>
+            <div class="col-md-4">
+                <form action="index.php" method="post" class="form-inline">
+                    <input type="hidden" name="id" value="<?= $id ?>">
+                    <input type="submit" value="Sí" class="form-control btn btn-danger">
+                    <a href="index.php" class="btn btn-success">No</a>
+                </form>
+            </div>
+        </div>
+    <?php
 }
