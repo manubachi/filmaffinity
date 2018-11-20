@@ -50,7 +50,7 @@
                         <div class="form-group">
                             <label for="buscarTitulo">Buscar por título o género:</label>
                             <input id="buscarTitulo" type="text" name="buscarTitulo"
-                                    value="<?= $buscarTitulo ?>"
+                                    value="<?= h($buscarTitulo) ?>"
                                     class="form-control">
                         </div>
                         <input type="submit" value="Buscar" class="btn btn-primary">

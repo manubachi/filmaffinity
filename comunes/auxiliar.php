@@ -37,7 +37,7 @@ function cabecera($titulo)
             <meta charset="utf-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title><?= $titulo ?></title>
+            <title><?= h($titulo) ?></title>
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
             <style media="screen">
                 #busqueda { margin-top: 1em; }
@@ -185,7 +185,7 @@ function hasError($key, $error)
 function mensajeError($key, $error)
 {
   if (isset($error[$key])) :?>
-    <span id="helpBlock" class="help-block"><?=$error[$key]?></span>
+    <span id="helpBlock" class="help-block"><?=h($error[$key])?></span>
   <?php endif;
 }
 
@@ -198,7 +198,7 @@ function mostrarFormulario($valores, $error, $accion)
     <div class="container">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title"><?= $accion ?> película...</h3>
+                <h3 class="panel-title"><?= h($accion) ?> película...</h3>
             </div>
             <div class="panel-body">
                 <form action="" method="post">
@@ -248,7 +248,7 @@ function mostrarFormulario($valores, $error, $accion)
                         </select>
                         <?php mensajeError('genero_id', $error) ?>
                     </div>
-                    <input type="submit" value="<?= $accion ?>"
+                    <input type="submit" value="<?= h($accion) ?>"
                            class="btn btn-success">
                     <a href="index.php" class="btn btn-info">Volver</a>
                 </form>
@@ -300,7 +300,7 @@ function mostrarFormularioGen($valores, $error, $accion)
     <div class="container">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title"><?= $accion ?> género...</h3>
+                <h3 class="panel-title"><?= h($accion) ?> género...</h3>
             </div>
             <div class="panel-body">
                 <form action="" method="post">
@@ -310,7 +310,7 @@ function mostrarFormularioGen($valores, $error, $accion)
                                class="form-control" value="<?= h($genero) ?>" >
                         <?php mensajeError('genero', $error) ?>
                     </div>
-                    <input type="submit" value="<?= $accion ?>"
+                    <input type="submit" value="<?= h($accion) ?>"
                            class="btn btn-success">
                     <a href="index.php" class="btn btn-info">Volver</a>
                 </form>
@@ -394,13 +394,13 @@ function menu($accion)
             <div class="collapse navbar-collapse navbar-center">
               <ul class="nav navbar-nav">
                 <li role="separator" class="divider"></li>
-                <li class="<?= $accion == 'home' ? 'active' : '' ?>"><a href="../index.php">Home</a></li>
-                <li class="<?= $accion == 'peliculas' ? 'active' : '' ?>"><a href="../peliculas/index.php">Peliculas</a></li>
-                <li class="<?= $accion == 'generos' ? 'active' : '' ?>"><a href="../generos/index.php">Géneros</a></li>
+                <li class="<?= h($accion) == 'home' ? 'active' : '' ?>"><a href="../index.php">Home</a></li>
+                <li class="<?= h($accion) == 'peliculas' ? 'active' : '' ?>"><a href="../peliculas/index.php">Peliculas</a></li>
+                <li class="<?= h($accion) == 'generos' ? 'active' : '' ?>"><a href="../generos/index.php">Géneros</a></li>
               </ul>
               <div class="navbar-text navbar-right">
                 <?php if (isset($_SESSION['usuario'])) :  ?>
-                  <span class="label label-info glyphicon glyphicon-user"> <?= $_SESSION['usuario']?></span>
+                  <span class="label label-info glyphicon glyphicon-user"> <?= h($_SESSION['usuario'])?></span>
                   <a href="../comunes/logout.php" class="btn btn-success">
                     <span class="glyphicon glyphicon-off" aria-hidden="true"></span> Logout
                   </a>
@@ -459,7 +459,7 @@ function compruebaMensajes($mensaje, $tipo)
     if (isset($_SESSION["$mensaje"])): ?>
         <div class="row">
             <div class="alert alert-<?=$tipo?>" role="alert">
-                <?= $_SESSION["$mensaje"] ?>
+                <?= h($_SESSION["$mensaje"]) ?>
             </div>
         </div>
         <?php unset($_SESSION["$mensaje"]);
@@ -488,11 +488,11 @@ function tablaPeliculas($st)
                             <td><?= h($fila['duracion']) ?></td>
                             <td><?= h($fila['genero']) ?></td>
                             <td>
-                                <a href="confirm_borrado.php?id=<?= $fila['id'] ?>"
+                                <a href="confirm_borrado.php?id=<?= h($fila['id']) ?>"
                                       class="btn btn-xs btn-danger">
                                     Borrar
                                 </a>
-                                <a href="modificar.php?id=<?= $fila['id'] ?>"
+                                <a href="modificar.php?id=<?= h($fila['id']) ?>"
                                       class="btn btn-xs btn-info">
                                     Modificar
                                 </a>
@@ -520,11 +520,11 @@ function tablaGeneros($st)
                         <tr>
                             <td><?= h($fila['genero']) ?></td>
                             <td>
-                                <a href="../generos/confirm_borrado.php?id=<?= $fila['id'] ?>"
+                                <a href="../generos/confirm_borrado.php?id=<?= h($fila['id']) ?>"
                                     class="btn btn-xs btn-danger">
                                     Borrar
                                 </a>
-                                <a href="../generos/modificar.php?id=<?= $fila['id'] ?>"
+                                <a href="../generos/modificar.php?id=<?= h($fila['id']) ?>"
                                     class="btn btn-xs btn-info">
                                     Modificar
                                 </a>
@@ -542,7 +542,7 @@ function botonInsertar($url, $mensaje)
 { ?>
     <div class="row">
         <div class="text-center">
-            <a href="<?= $url ?>" class="btn btn-info"><?= $mensaje ?></a>
+            <a href="<?= h($url) ?>" class="btn btn-info"><?= h($mensaje) ?></a>
         </div>
     </div>
     <?php
@@ -555,7 +555,7 @@ function preguntarBorrado($id)
             <h3>¿Seguro que desea borrar el género?</h3>
             <div class="col-md-4">
                 <form action="index.php" method="post" class="form-inline">
-                    <input type="hidden" name="id" value="<?= $id ?>">
+                    <input type="hidden" name="id" value="<?= h($id) ?>">
                     <input type="submit" value="Sí" class="form-control btn btn-danger">
                     <a href="index.php" class="btn btn-success">No</a>
                 </form>
