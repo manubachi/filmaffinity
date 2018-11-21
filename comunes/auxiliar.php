@@ -38,7 +38,10 @@ function cabecera($titulo)
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <title><?= h($titulo) ?></title>
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+            <link rel="stylesheet"
+              href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+              integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+              crossorigin="anonymous">
             <style media="screen">
                 #busqueda { margin-top: 1em; }
             </style>
@@ -62,7 +65,7 @@ function buscarUsuario($pdo, $id)
 }
 
 function comprobarId()
-  {
+{
     $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
     if ($id === null || $id === false) {
       throw new ParamException();
@@ -72,11 +75,11 @@ function comprobarId()
 
 function comprobarPelicula($pdo, $id)
 {
-  $fila = buscarPelicula($pdo, $id);
-  if ($fila === false) {
-      throw new ParamException();
-  }
-  return $fila;
+    $fila = buscarPelicula($pdo, $id);
+    if ($fila === false) {
+        throw new ParamException();
+    }
+    return $fila;
 }
 
 function comprobarTitulo(&$error)
@@ -126,24 +129,24 @@ function comprobarDuracion(&$error)
 
 function comprobarGeneroId($pdo, &$error)
 {
-  $fltGeneroId = filter_input(INPUT_POST, 'genero_id', FILTER_VALIDATE_INT);
-  if ($fltGeneroId !== false) {
-      //Buscar en la base de datos si existe este género.
-      $st = $pdo->prepare('SELECT * FROM generos WHERE id = :id');
-      $st->execute([':id' => $fltGeneroId]);
-      if (!$st->fetch()) {
-          $error['genero_id'] = 'No existe ese género.';
-      }
-  } else {
-      $error['genero_id'] = 'El género no es correcto.';
-  }
-  return $fltGeneroId;
+    $fltGeneroId = filter_input(INPUT_POST, 'genero_id', FILTER_VALIDATE_INT);
+    if ($fltGeneroId !== false) {
+        //Buscar en la base de datos si existe este género.
+        $st = $pdo->prepare('SELECT * FROM generos WHERE id = :id');
+        $st->execute([':id' => $fltGeneroId]);
+        if (!$st->fetch()) {
+            $error['genero_id'] = 'No existe ese género.';
+        }
+    } else {
+        $error['genero_id'] = 'El género no es correcto.';
+    }
+    return $fltGeneroId;
 }
 
 function insertarPelicula($pdo, $fila)
 {
     $st = $pdo->prepare('INSERT INTO peliculas (titulo, anyo, sinopsis, duracion, genero_id)
-                         VALUES (:titulo, :anyo, :sinopsis, :duracion, :genero_id)');
+                              VALUES (:titulo, :anyo, :sinopsis, :duracion, :genero_id)');
     $st->execute($fila);
 }
 
@@ -161,32 +164,32 @@ function modificarPelicula($pdo, $fila, $id)
 
 function comprobarParametros($par)
 {
-  if (empty($_POST)) {
-    throw new EmptyParamException();
-  }
-  if (!empty(array_diff_key($par, $_POST)) ||
-      !empty(array_diff_key($_POST, $par))) {
-        throw new ParamException();
-  }
+    if (empty($_POST)) {
+      throw new EmptyParamException();
+    }
+    if (!empty(array_diff_key($par, $_POST)) ||
+        !empty(array_diff_key($_POST, $par))) {
+          throw new ParamException();
+    }
 }
 
 function comprobarErrores($error)
 {
-  if (!empty($error)) {
-      throw new ValidationException();
-  }
+    if (!empty($error)) {
+        throw new ValidationException();
+    }
 }
 
 function hasError($key, $error)
 {
-  return array_key_exists($key, $error) ? 'has-error' : '';
+    return array_key_exists($key, $error) ? 'has-error' : '';
 }
 
 function mensajeError($key, $error)
 {
-  if (isset($error[$key])) :?>
-    <span id="helpBlock" class="help-block"><?=h($error[$key])?></span>
-  <?php endif;
+    if (isset($error[$key])) :?>
+      <span id="helpBlock" class="help-block"><?=h($error[$key])?></span>
+    <?php endif;
 }
 
 function mostrarFormulario($valores, $error, $accion)
@@ -259,7 +262,7 @@ function mostrarFormulario($valores, $error, $accion)
 
 function selected($a,$b)
 {
-  return $a == $b ? 'selected' : '';
+    return $a == $b ? 'selected' : '';
 }
 
 function h($cadena)
@@ -328,11 +331,11 @@ function insertarGenero($pdo, $fila)
 
 function comprobarGenero($pdo, $id)
 {
-  $fila = buscarGenero($pdo, $id);
-  if ($fila === false) {
-      throw new ParamException();
-  }
-  return $fila;
+    $fila = buscarGenero($pdo, $id);
+    if ($fila === false) {
+        throw new ParamException();
+    }
+    return $fila;
 }
 
 function modificarGenero($pdo, $fila, $id)
@@ -366,21 +369,21 @@ function politicaCookies()
 
 function pie()
 {
-    ?>
-            <br>
-            <br>
-            <footer class="footer navbar-inverse">
-                <div class="container">
-                    <p class="navbar-text"> FilmAffinity </p>
-                    <p class="navbar-text"> Manuel Alejandro Benítez García </p>
-                </div>
-            </footer>
-        </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    </body>
-</html>
-    <?php
+        ?>
+                <br>
+                <br>
+                <footer class="footer navbar-inverse">
+                    <div class="container">
+                        <p class="navbar-text"> FilmAffinity </p>
+                        <p class="navbar-text"> Manuel Alejandro Benítez García </p>
+                    </div>
+                </footer>
+            </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        </body>
+    </html>
+        <?php
 }
 
 function menu($accion)
