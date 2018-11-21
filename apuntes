@@ -33,4 +33,11 @@
 
 #AUTOLOADING#
 
-  Mecanismo que permite cargar una clase en el momento que lo utiliza
+  Mecanismo que permite cargar una clase en el momento que lo utiliza.
+  Esto es posible, gracias a Composer
+  PSR-4 -> Define los estándares del autoloading.
+  Corresponde espacios de nombre con carpetas. Es decir corresponde a la ruta del archivo.
+  Para usarlo : require 'vendor/autoload.php';
+
+#PHP-FIG#
+  Son los estándares que hay que seguir a la hora de escribir código php
