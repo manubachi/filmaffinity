@@ -563,3 +563,60 @@ function preguntarBorrado($id)
         </div>
     <?php
 }
+
+function encontrarPelicula($pdo,$buscador,$buscar)
+{
+    switch ($buscador) {
+        case 'Título':
+            $st = $pdo->prepare('SELECT p.*, genero
+                                   FROM peliculas p
+                                   JOIN generos g
+                                     ON genero_id = g.id
+                                  WHERE position(lower(:titulo) in lower(titulo)) != 0
+                               ORDER BY id');
+            $st->execute([':titulo' => $buscar]);
+            return $st;
+            break;
+        case 'Género':
+            $st = $pdo->prepare('SELECT p.*, genero
+                                   FROM peliculas p
+                                   JOIN generos g
+                                     ON genero_id = g.id
+                                  WHERE position(lower(:genero) in lower(genero)) != 0
+                               ORDER BY id');
+            $st->execute([':genero' => $buscar]);
+            return $st;
+            break;
+        case 'Año':
+            $st = $pdo->prepare('SELECT p.*, genero
+                                   FROM peliculas p
+                                   JOIN generos g
+                                     ON genero_id = g.id
+                                  WHERE :anyo = anyo
+                               ORDER BY id');
+            $st->execute([':anyo' => $buscar]);
+            return $st;
+            break;
+        case 'Duración':
+            $st = $pdo->prepare('SELECT p.*, genero
+                                   FROM peliculas p
+                                   JOIN generos g
+                                     ON genero_id = g.id
+                                  WHERE :duracion = duracion
+                               ORDER BY id');
+            $st->execute([':duracion' => $buscar]);
+            return $st;
+            break;
+
+        default:
+            $st = $pdo->prepare('SELECT p.*, genero
+                                   FROM peliculas p
+                                   JOIN generos g
+                                     ON genero_id = g.id
+                                  WHERE position(lower(:titulo) in lower(titulo)) != 0
+                               ORDER BY id');
+            $st->execute([':titulo' => $buscar]);
+            return $st;
+            break;
+    }
+}

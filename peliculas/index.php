@@ -11,6 +11,7 @@
         ?>
         <div class="row">
             <?php
+            const OPCIONES = ['Título','Año','Duración','Género'];
 
             $pdo = conectar();
 
@@ -29,17 +30,11 @@
                     header('Location: index.php');
                 }
             }
-            $buscarTitulo = isset($_GET['buscarTitulo']) ?
-                trim($_GET['buscarTitulo']): '';
-
-            $st = $pdo->prepare('SELECT p.*, genero
-                                   FROM peliculas p
-                                   JOIN generos g
-                                     ON genero_id = g.id
-                                  WHERE position(lower(:titulo) in lower(titulo)) != 0
-                                     OR position(lower(:titulo) in lower(genero)) != 0
-                               ORDER BY id');
-            $st->execute([':titulo' => $buscarTitulo]);
+            $buscar = isset($_GET['buscar']) ?
+                trim($_GET['buscar']): '';
+            $buscador = isset($_GET['buscador']) ?
+                trim($_GET['buscador']): '';
+            $st = encontrarPelicula($pdo,$buscador,$buscar);
             ?>
         </div>
         <div class="row" id="busqueda">
@@ -48,10 +43,19 @@
                     <legend>Buscar...</legend>
                     <form action="" method="get" class="form-inline">
                         <div class="form-group">
-                            <label for="buscarTitulo">Buscar por título o género:</label>
-                            <input id="buscarTitulo" type="text" name="buscarTitulo"
-                                    value="<?= h($buscarTitulo) ?>"
-                                    class="form-control">
+                            <label for="buscador">Buscar por :</label>
+                            <select  name='buscador'><?php
+                                foreach (OPCIONES as $op):
+                                  ?>
+                                    <option value="<?= $op ?>"  <?= selected($buscador,$op)?>>
+                                        <?= $op ?>
+                                    </option>
+                                  <?php
+                                endforeach;
+                                ?>
+                             </select>
+                            <input id="buscar" type="text" name="buscar"
+                            value="<?= $buscar ?>" class="form-control">
                         </div>
                         <input type="submit" value="Buscar" class="btn btn-primary">
                     </form>
