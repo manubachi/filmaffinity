@@ -274,7 +274,7 @@ function buscarGenero($pdo, $id)
     return $st->fetch();
 }
 
-function comprobarNomGenero(&$error)
+function comprobarNomGenero($pdo, &$error)
 {
     $fltGenero = trim(filter_input(INPUT_POST, 'genero'));
     if ($fltGenero == '') {
