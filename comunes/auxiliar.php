@@ -392,7 +392,7 @@ function menu($accion)
     <nav class="navbar navbar-default navbar-inverse">
         <div class="container">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">FilmAffinity</a>
+                <a class="navbar-brand" href="../index.php">FilmAffinity</a>
             </div>
             <div class="collapse navbar-collapse navbar-center">
               <ul class="nav navbar-nav">
