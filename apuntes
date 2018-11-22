@@ -41,3 +41,7 @@
 
 #PHP-FIG#
   Son los estándares que hay que seguir a la hora de escribir código php
+
+ # PLANTILLA YII2#
+
+ composer create-project --prefer-dist ricpelo/yii2-app-basic
