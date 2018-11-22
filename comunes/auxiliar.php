@@ -512,7 +512,7 @@ function tablaPeliculas($st)
 function tablaGeneros($st)
 { ?>
     <div class="row">
-        <div class="col-sm" id="tabla" >
+        <div class="col-md-offset-3 col-md-6" >
             <table class="table table-bordered table-hover table-striped" >
                 <thead>
                     <th>Genero</th>
