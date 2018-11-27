@@ -32,11 +32,34 @@
             }
             $buscarGenero = isset($_GET['buscarGenero'])
                 ? trim($_GET['buscarGenero']) : '';
+
+            $st = $pdo->prepare('SELECT count(*) AS numero
+                                   FROM generos
+                                  WHERE position(lower(:genero) in lower(genero)) != 0');
+            $st->execute([':genero' => $buscarGenero]);
+
+            $fila = $st->fetch();
+            $nfilas = $fila['numero'];
+            $npags = ceil($nfilas / FPP);
+            $pag = isset($_GET['pag']) &&
+                   ctype_digit($_GET['pag']) &&
+                   $_GET['pag'] >= 1 &&
+                   $_GET['pag'] <= $npags ? (int) $_GET['pag'] : 1;
+
+            $ord = isset($_GET['ord'])
+                    ? trim($_GET['ord']) : 'id';
+
             $st = $pdo->prepare('SELECT *
                                    FROM generos
                                   WHERE position(lower(:genero) in lower(genero)) != 0
-                               ORDER BY id');
-            $st->execute([':genero' => $buscarGenero]);
+                               ORDER BY id
+                                  LIMIT :limit
+                                 OFFSET :offset');
+            $st->execute([
+                            ':genero' => $buscarGenero,
+                            ':limit' => FPP,
+                            ':offset' => ($pag - 1) * FPP,
+                        ]);
             ?>
         </div>
         <div class="row" id="busqueda">
@@ -57,7 +80,7 @@
         </div>
         <hr>
         <?php
-        tablaGeneros($st) ;
+        tablaGeneros($st, $npags, $pag, $buscarGenero) ;
         botonInsertar('insertar.php', 'Insertar un nuevo género');
         politicaCookies() ;
         pie();

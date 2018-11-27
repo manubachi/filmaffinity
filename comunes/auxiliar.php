@@ -1,4 +1,6 @@
 <?php
+const FPP = 10;
+
 const PAR = [
     'titulo' => '',
     'anyo' => '',
@@ -509,7 +511,7 @@ function tablaPeliculas($st)
     <?php
 }
 
-function tablaGeneros($st)
+function tablaGeneros($st, $npags, $pag, $buscarGenero)
 { ?>
     <div class="row">
         <div class="col-md-offset-3 col-md-6" >
@@ -536,6 +538,30 @@ function tablaGeneros($st)
                     <?php endforeach ?>
                 </tbody>
             </table>
+        </div>
+    </div>
+    <?php $url = "index.php?buscarGenero=$buscarGenero" ?>
+    <div class="row">
+        <div class="text-center">
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li <?= $pag == 1 ? 'class="disabled"' : '' ?> >
+                        <a href="<?= $url . '&pag=' . ($pag - 1) ?>" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <?php for ($i = 1; $i <= $npags; $i++): ?>
+                        <li <?= $i == $pag ? 'class="active"' : '' ?> >
+                            <a href="<?= $url . '&pag=' . $i ?>"><?= $i ?></a>
+                        </li>
+                    <?php endfor ?>
+                    <li <?= $pag == $npags ? 'class="disabled"' : '' ?> >
+                        <a href="<?= $url . '&pag=' . ($pag + 1) ?>" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
     <?php
