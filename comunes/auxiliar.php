@@ -513,11 +513,12 @@ function tablaPeliculas($st)
 
 function tablaGeneros($st, $npags, $pag, $buscarGenero)
 { ?>
+    <?php $url = "index.php?buscarGenero=$buscarGenero" ?>
     <div class="row">
         <div class="col-md-offset-3 col-md-6" >
             <table class="table table-bordered table-hover table-striped" >
                 <thead>
-                    <th>Genero</th>
+                    <th><a href="<?= $url . "&orden=genero"?>">Genero</a></th>
                     <th>Acciones</th>
                 </thead>
                 <tbody>
@@ -540,7 +541,6 @@ function tablaGeneros($st, $npags, $pag, $buscarGenero)
             </table>
         </div>
     </div>
-    <?php $url = "index.php?buscarGenero=$buscarGenero" ?>
     <div class="row">
         <div class="text-center">
             <nav aria-label="Page navigation">

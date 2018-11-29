@@ -46,15 +46,15 @@
                    $_GET['pag'] >= 1 &&
                    $_GET['pag'] <= $npags ? (int) $_GET['pag'] : 1;
 
-            $ord = isset($_GET['ord'])
-                    ? trim($_GET['ord']) : 'id';
+            $orden = isset($_GET['orden'])
+                    ? trim($_GET['orden']) : 'id';
 
-            $st = $pdo->prepare('SELECT *
+            $st = $pdo->prepare("SELECT *
                                    FROM generos
                                   WHERE position(lower(:genero) in lower(genero)) != 0
-                               ORDER BY id
+                               ORDER BY $orden
                                   LIMIT :limit
-                                 OFFSET :offset');
+                                 OFFSET :offset");
             $st->execute([
                             ':genero' => $buscarGenero,
                             ':limit' => FPP,
